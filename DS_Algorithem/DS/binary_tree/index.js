@@ -54,12 +54,40 @@ function inOrder(n) {
 }
 
 /* 先序遍历*/
-
 function PreOrder(n){
   if(n){
     console.log(n.data);
     PreOrder(n.left);
     PreOrder(n.right);
   }
+}
 
+/* 查找 */
+function getMin(){
+    var current = this.root;
+    while(!(current.left == null )){
+        current = current.left;
+    }
+    return current.data;
+}
+function getMax(){
+     var current = this.root;
+    while(!(current.right == null )){
+        current = current.right;
+    }
+    return current.data;
+}
+function find(data){
+    var current = this.root;
+    while(current != null){
+        if(current.data == data){
+            return current;
+        }
+        else if(data < current.data){
+            current = current.left;
+        }else{
+            current = current.right;
+        }
+    }
+    return null;
 }

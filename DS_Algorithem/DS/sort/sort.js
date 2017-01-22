@@ -18,6 +18,25 @@ function selectionSort(){
 function insertSort(){
   var temp, inner;
   for (var outer = 0; outer < this.dataStore.length -1 ; outer++) {
-    Things[i]
+    temp = this.dataStore[outer];
+    inner = outer;
+    while(inner > 0 && (this.dataStore[inner - 1] >= temp)){
+      this.dataStore[inner] = this.dataStore[inner - 1];
+      --inner;
+    }
+    this.dataStore[inner] = temp;
+  }
+}
+
+/* 希尔排序 */
+function shellsort(){
+  for (var g = 0; g < this.gaps.length; i++) {
+    for (var i = this.gaps[g]; i < this.dataStore.length; i++) {
+      var temp = this.dataStore[ij;
+      for (var j = i;  j >= this.gaps[g]&&this.dataStore[j-this.gaps[g]]>temp; j-=this.gaps[g]) {
+        this.dataStore[j] = this.dataStore[j - this.gaps[g]];
+      }
+      this.dataStore[j] = temp;
+    }
   }
 }

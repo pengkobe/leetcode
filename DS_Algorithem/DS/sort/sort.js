@@ -13,3 +13,11 @@ function selectionSort(){
        swap(this.dataStore, outer, min);
   }
 }
+
+/* 插入排序 */
+function insertSort(){
+  var temp, inner;
+  for (var outer = 0; outer < this.dataStore.length -1 ; outer++) {
+    Things[i]
+  }
+}

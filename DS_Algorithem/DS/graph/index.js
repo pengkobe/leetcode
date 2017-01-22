@@ -72,3 +72,24 @@ function bfs(s){
     }
   }
 }
+
+/* 查找最短路径 */
+this.edgeTo =[];
+function bfs(s){
+  var queue = [];
+  this.marked[s] = true;
+  queue.push(s);
+  while(queue.length > 0){
+    var v = queue.shift();
+    if(v == undefined){
+      console.log("node",v);
+    }
+    for each(var w in this.adj[v]){
+      if(!this.marked[w]){
+        this.edgeTo[w] = v;
+        this.marked[w] = true;
+        queue.push(w);
+      }
+    }
+  }
+}

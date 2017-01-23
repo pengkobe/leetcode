@@ -91,3 +91,36 @@ function find(data){
     }
     return null;
 }
+
+/* 删除节点 */
+function remove(data){
+    root = removeNode(this.root, data);
+}
+
+function removeNode(node, data){
+    if(node == null){
+        return null;
+    }
+    if(data == node.data){
+        // 没有子节点的节点
+        if(node.left == null && node.right == null){
+            return null;
+        }
+        if(node.left == null){
+            return node.right;
+        }
+        if(node.right == null){
+            return node.left;
+        }
+        // 有两个子节点的节点
+        var tempNode = getSmallest(node.right);
+        node.data = tempNode.data;
+        node.right = removeNode(node.right, tempNode.data);
+    }
+    else if(data < node.data){
+        node.left = removeNode(node.left, data);
+    }else if(data > node.data){
+        node.right = removeNode(node.right, data);
+    }
+    return node;
+}

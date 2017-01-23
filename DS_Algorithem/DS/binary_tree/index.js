@@ -124,3 +124,21 @@ function removeNode(node, data){
     }
     return node;
 }
+
+/*计数
+可以在节点中增加一个 count 属性
+*/
+function Node(data, left, right) {
+    this.data = data;
+    this.count = 1;
+    this.left = left;
+    this.right = right;
+    this.show = show;
+}
+var node = BST.find(data);
+if(node == null){
+    BST.insert(new Node(data,null,null));
+}else{
+    BST.update(node);
+}
+

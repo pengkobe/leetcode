@@ -27,3 +27,15 @@ function showDistro(){
       print(i + ": " + this.table[i]);
     }
 }
+
+
+/* 一个更好的散列函数 */
+function betterHash(string, arr){
+  const H =37;
+  var total = 0;
+  for (var i = 0; i < string.length; i++) {
+    total += H * total + string.charCodeAt(i);
+  }
+  total = total % arr.length;
+  return parseInt(total);
+}

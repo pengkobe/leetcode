@@ -3,3 +3,6 @@
 
 ## reference
 https://leetcode.com/
+
+## License
+MIT@yipeng.info

@@ -59,8 +59,13 @@ function mergeSort(arr) {
             left = right + step; // ...
             right = left + step;
         }
+        // 处理余下部分
+        if(right < arr.length){
+            mergeArrays(arr, left, left+startLeft, right,arr.length);
+        }
+        // 步骤成倍增长
+        step *= 2;
     }
-    step *= 2;
 }
 
 
@@ -98,20 +103,20 @@ function mergeArrays(arr, startLeft, stopLeft, startRight, stopRight) {
 }
 
 /* 快速排序 */
-function qSort(list){
-  if(list.length  = 0){
-    return [];
-  }
-  var lesser = [];
-  var greater = [];
-  var pivot = list[0];
-  for (var i = 0; i < list.length; i++) {
-    if(list[i] < pivot){
-      lesser.push(list[i]);
-    }else{
-      greater.push(list[i]);
+function qSort(list) {
+    if (list.length = 0) {
+        return [];
     }
-  }
+    var lesser = [];
+    var greater = [];
+    var pivot = list[0];
+    for (var i = 0; i < list.length; i++) {
+        if (list[i] < pivot) {
+            lesser.push(list[i]);
+        } else {
+            greater.push(list[i]);
+        }
+    }
 
-  return qSort(lesser).concat(pivot, qSort(greater));
+    return qSort(lesser).concat(pivot, qSort(greater));
 }

@@ -29,13 +29,17 @@ function insertSort() {
     }
 }
 
-/* 希尔排序 */
+/* 希尔排序
+实际上它是对插入排序进行改善后的结果 */
 function shellsort() {
-    for (var g = 0; g < this.gaps.length; i++) {
-        for (var i = this.gaps[g]; i < this.dataStore.length; i++) {
+    for (var g = 0; g < this.gaps.length; g++) { // 排序次数
+        for (var i = this.gaps[g]; i < this.dataStore.length; i++) { // 按照间隔往前推依次比较
             var temp = this.dataStore[i];
-            for (var j = i; j >= this.gaps[g] && this.dataStore[j - this.gaps[g]] > temp; j -= this.gaps[g]) {
-                this.dataStore[j] = this.dataStore[j] - this.gaps[g]];
+            for (var j = i;
+                j >= this.gaps[g] && this.dataStore[j - this.gaps[g]] > temp;
+                j -= this.gaps[g]) {
+                this.dataStore[j] = this.dataStore[j - this.gaps[g]];
+            }
         }
         this.dataStore[j] = temp;
     }

@@ -12,3 +12,5 @@
 > http://study.163.com/course/courseMain.htm?courseId=1003285002
 
 网络爬虫实战，学了东西就得实践，希望这门课程可以让我更深的了解 Python
+
+* pandas 套件，转变为 Data Frame，`data = pandas.DataFrame(xxx);data.head(10);`

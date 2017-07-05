@@ -101,7 +101,6 @@ def threeSum(input,target):
         # map[input[i]] = i;
         for i in range(len(input)):
               temp = target2 - input[i];
-              print('target2 temp:',temp)
               if map[temp] and map[temp]>startIndex and map[temp] != i+startIndex:  
                   return [i+startIndex,map[temp]];
         return -1;
@@ -109,7 +108,9 @@ def threeSum(input,target):
     for i in range(len(input)-1):
         temp = target - input[i];
         arraypart = input[i+1:];
-        print(arraypart)
         ret = sumOfTwo(arraypart, temp,i+1);
         if ret != -1:
             return [i] + ret;
+
+
+print (threeSum([1,2,3,1,5,7,6],9))

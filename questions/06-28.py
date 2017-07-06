@@ -114,3 +114,25 @@ def threeSum(input,target):
 
 
 print (threeSum([1,2,3,1,5,7,6],9))
+
+
+
+# 两数相加为定值
+def sumOfTwo(nums,target):
+    map = {};
+    # 不能存在重复值，失败
+    for k,v in enumerate(nums):
+        map[v] = k;
+    for i in range(len(nums)):
+        temp = target - nums[i];
+        if map[temp] and map[temp] != i:
+            return [i,map[temp]];
+    return -1;
+
+## 正解
+def sumOfTwo(nums,target):
+    for i in range(len(nums)):
+        temp = target - nums[i];
+        if temp in nums:
+            return [i,map[temp]];
+    return -1;

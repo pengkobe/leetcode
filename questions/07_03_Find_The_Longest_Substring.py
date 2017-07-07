@@ -34,5 +34,16 @@
 #   return Math.max(tenLen, resLen)
 # }
 
-def longestUniqueSubstr(str):
-    
+def longestUniqueSubstr(s):
+    substr = []
+    maxStrlen = 1;
+    for i in range(len(s)):
+        if s[i] in substr:
+            index = substr.index(s[i])
+            if maxStrlen < len(substr):
+                maxStrlen = len(substr)
+            substr = substr[index+1:]
+        substr.append(s[i])
+    return len(substr) if len(substr) > maxStrlen else maxStrlen;
+
+print(longestUniqueSubstr('bpfbhmipx'))

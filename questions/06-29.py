@@ -12,17 +12,23 @@
 # 溢出则输出 0.
 
 import sys
+import math
+
 def reverseInteger(x):
     res = 0
     flag = lambda x:x<0
     flag = flag(x)
     x = abs( x )
+    maxint = math.pow(2, 31)-1
+    print(maxint)
+    # 使用这个在 leetcode 环境下会报错
+    print(sys.maxint)
     while 1:
         if x == 0:
             break
-        if res > sys.maxint/10 :
-            return 0
         res = res * 10 + x % 10
+        if res > maxint :
+            return 0
         x = x/10
     if(flag):
         return -res
@@ -32,7 +38,9 @@ def reverseInteger(x):
 print("123",reverseInteger(123))
 print("-123",reverseInteger(-123))
 print("100",reverseInteger(100))
-print("1000000003",reverseInteger(1000000003))
+print("1534236469",reverseInteger(1534236469))
+print("1563847412",reverseInteger(1563847412))
+
 
 ## 其它方案
 # class Solution {

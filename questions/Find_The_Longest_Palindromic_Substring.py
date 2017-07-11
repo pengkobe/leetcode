@@ -7,20 +7,35 @@
 # 参考答案：https://github.com/barretlee/daily-algorithms/blob/master
 
 
-def Find_The_Longest_Palindromic_Substring(str):
-    strlen = len(str);
-    D = [[0]* strlen for i in range(strlen)]  
-    for i in range(strlen):
+## 此处使用递归法解答
+def Find_The_Longest_Palindromic_Substring(s):
+    strlen = len(s);
+    leftIndex, rightIndex = 0,0;
+    D = [[False]* strlen for i in range(strlen)]  
+    for i in range(0,strlen-1):
         D[i][i] = True;
         if i < strlen-1:
-            D[i][i+1] = True;
+            #print(s[i])
+            if(s[i] == s[i+1]):
+                D[i][i+1] = True;
+                rightIndex = i+1;
+                leftIndex = i;
     
-     for i in range(2,strlen):
-          for j in range(0,strlen-i):
-              if(D[i][j] && str[j] = str[j + i -1]):
-                  
-
+    for i in range(1,strlen):
+        #print ('range1',i) 
+        for j in range(0,strlen-i):
+            #print ('range2',j) 
+            if (D[j+1][j+i-1] and s[j] == s[j+i]):
+                D[j][j+i] = True;
+                if (rightIndex - leftIndex) < i:
+                    leftIndex = j;
+                    rightIndex= i+j;
+                
+    #print(leftIndex);
+    #print(rightIndex);
+    return s[leftIndex:rightIndex+1];
     
-    
-
-Find_The_Longest_Palindromic_Substring('xxasd')
+print(Find_The_Longest_Palindromic_Substring('vv'))
+print(Find_The_Longest_Palindromic_Substring('saxxasd'))
+print(Find_The_Longest_Palindromic_Substring('cbbd'))
+print(Find_The_Longest_Palindromic_Substring('babad'))

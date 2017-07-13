@@ -33,26 +33,58 @@
 
 
 
-import math
+# import math
+
+# def Container_With_Most_Water(arr):
+#     arrLen = len(arr);
+#     maxArea = 0;
+#     maxIndex = 0;
+#     if(arrLen <= 2):
+#         return 0;
+
+#     for i in range(arrLen-1):
+#         if i ==0:
+#             maxArea = 1 * arr[i];
+#         else:
+#             height = arr[i] if arr[i] < arr[i+1] else  arr[i+1];
+#             area = height * 1;
+#             area = area if area > 0 else  -1 * area;
+#             print(area)
+#             if area > maxArea:
+#                 maxArea = area;
+#                 maxIndex = [i,i+1]
+#     return maxIndex;
+
+# print(Container_With_Most_Water([3, 4, 3, 8, 2, 7, 9]));
+
+
+
+# Time Limit Exceeded
+# def Container_With_Most_Water(arr):
+#     maxArea = 0;
+#     arrLen = len(arr);
+#     for i in range(arrLen):
+#         for j in range(i+1,arrLen):
+#             height = arr[i] if arr[i] < arr[j] else  arr[j];
+#             if maxArea < height * (j - i):
+#                 maxArea =  height * (j - i)
+
+#     return maxArea
+# print(Container_With_Most_Water([3, 4, 3, 8, 2, 7, 9]));
+
 
 def Container_With_Most_Water(arr):
-    arrLen = len(arr);
     maxArea = 0;
-    maxIndex = 0;
-    if(arrLen <= 2):
-        return 0;
-
-    for i in range(arrLen-1):
-        if i ==0:
-            maxArea = 1 * arr[i];
+    arrLen = len(arr);
+    i,j = 0,arrLen -1;
+    while (i < j):
+        height = arr[i] if arr[i] < arr[j] else  arr[j];
+        maxArea = max(maxArea, height*(j-i));
+        if arr[i] < arr[j]:
+            i +=1;
         else:
-            height = arr[i] if arr[i] < arr[i+1] else  arr[i+1];
-            area = height * 1;
-            area = area if area > 0 else  -1 * area;
-            print(area)
-            if area > maxArea:
-                maxArea = area;
-                maxIndex = [i,i+1]
-    return maxIndex;
+            j -=1;
+    return maxArea;
+
 
 print(Container_With_Most_Water([3, 4, 3, 8, 2, 7, 9]));

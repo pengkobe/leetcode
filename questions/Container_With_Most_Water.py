@@ -72,7 +72,7 @@
 #     return maxArea
 # print(Container_With_Most_Water([3, 4, 3, 8, 2, 7, 9]));
 
-
+# 听说有点类似夹逼算法
 def Container_With_Most_Water(arr):
     maxArea = 0;
     arrLen = len(arr);

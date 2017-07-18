@@ -91,7 +91,7 @@
 ## 三数相加为定值
 def threeSum(input,target):
     map = {};
-    
+    # 错误
     for k,v in enumerate(input):
     	map[v] = k;
     

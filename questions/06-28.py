@@ -130,9 +130,16 @@ def sumOfTwo(nums,target):
     return -1;
 
 ## 正解
-def sumOfTwo(nums,target):
-    for i in range(len(nums)):
-        temp = target - nums[i];
-        if temp in nums:
-            return [i,map[temp]];
-    return -1;
+def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        for i in range(len(nums)):
+            temp = target - nums[i];
+            if temp in nums:
+                index = nums.index(temp);
+                if index != i:
+                    return [i,index];
+        return -1; 

@@ -147,35 +147,52 @@ def _3Sum_1(array):
 
 
 # 重复值
-print(_3Sum_1([1,2,-2,-1]))
+#print(_3Sum_1([1,2,-2,-1]))
 # 出现重复值时无法解决
-print(_3Sum_1([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0]))
+#print(_3Sum_1([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0]))
 # 出现重复值时无法解决
-print(_3Sum_1([0,0,0]))
+#print(_3Sum_1([0,0,0]))
 
-print(_3Sum_1([0, 0, 0,0, 0, 0]))
+#print(_3Sum_1([0, 0, 0,0, 0, 0]))
 
 
 # 思路一错，满盘皆输，思路最重要
-def threeSum( nums):
+def threeSum( nums ):
     # 经过 sorted 后其实已经排除了相同的可能
-    nums, result, i = sorted(nums), [], 0
-    while i < len(nums) - 2:
-        if i == 0 or nums[i] != nums[i - 1]:
-            j, k = i + 1, len(nums) - 1
-            while j < k:
-                if nums[i] + nums[j] + nums[k] < 0:
-                    j += 1
-                elif nums[i] + nums[j] + nums[k] > 0:
-                    k -= 1
-                else:
-                    result.append([nums[i], nums[j], nums[k]])
-                    j, k = j + 1, k - 1
-                    while j < k and nums[j] == nums[j - 1]:
-                        j += 1
-                    while j < k and nums[k] == nums[k + 1]:
-                        k -= 1
-        i += 1
-    return result
+    nums = sorted(nums);
+    print(nums);
+    nums_len = len(nums);
+    i = 0;
+    ret = [];
+    while (i < nums_len -2):
+        a = nums[i];
+        if a>0:
+            return ret;
+        # 误区1 nums[i] == nums[i+1]
+        if nums[i] == nums[i-1]:
+            i = i + 1;
+            continue;
+        m = i + 1;
+        n = nums_len -1;
+        while (m < n):
+            b = nums[m];
+            c = nums[n];
+            if a + b + c < 0:
+                m = m + 1;
+                
+            elif a + b + c > 0:
+                n = n -1;
+            else:
+                ret.append([a,b,c]);
+                m = m + 1;
+                n = n -1;
+                # 误区2 nums[m] == nums[m+1] / nums[n] == nums[n-1]
+                while nums[m] == nums[m-1] and m +1 < n:
+                    m = m +1;
+                while nums[n] == nums[n+1] :
+                    n = n -1;
+        i = i +1;
+    return ret
 
-print(threeSum([0, 0, 0,0, 0, 0]))
+print(threeSum([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0]))
+# print(threeSum([0, 0, 0,0, 0, 0]))

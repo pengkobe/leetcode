@@ -158,7 +158,7 @@ def _3Sum_1(array):
 
 # 思路一错，满盘皆输，思路最重要
 def threeSum( nums ):
-    # 经过 sorted 后其实已经排除了相同的可能
+    # 妙点: 排序后，可以降低比对的难度
     nums = sorted(nums);
     print(nums);
     nums_len = len(nums);

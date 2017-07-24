@@ -49,48 +49,50 @@ print (addLinkedList([2,4,3],[5,6,4]))
 print (addLinkedList([2,4,3,9,9],[5,6,9]))
 
 
+
 # 正解，用链表实现
-def addLinkedList(linkA, linkB):
-    A_len = linkA.length;
-    B_len = linkB.length;
-    if A_len > B_len:
-        max_len = A_len
-        target = linkA.head();
-        plus = linkB.head();
-    else:
-         max_len = B_len;
-         target = linkB.head();
-         plus = linkA.head();
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-    flag = false;
-    while max_len > 0:
-        if flag:
-            if plus == null:
-                # 误区2 这里得判断 target 是否还要 next
-                _sum = target.element +1;
+class Solution(object):
+    def addTwoNumbers(self, linkA, linkB):
+        """
+        :type linkA: ListNode
+        :type linkB: ListNode
+        :rtype: ListNode
+        """
+        flag = 0;
+        ret =  ListNode(1);
+        tt = ret;
+        while linkA or linkB or flag:
+            if flag:
+                tmp = 1;
+                flag = 0;
             else:
-                _sum = target.element + plus.element +1;
-        else:
-            if plus == null:
-                _sum = target.element;
-                break;
+                tmp = 0;
+            if linkA:
+                tmp = tmp + linkA.val;
+            if linkB:
+                tmp = tmp+ linkB.val
+                
+            if tmp >= 10:
+                tmpNode = ListNode(tmp - 10);
+                flag = 1;
             else:
-                _sum = target.element + plus.element;
-        if _sum > 10:
-            flag = true;
-            target.element = _sum - 10;
-        else:
-            target.element = _sum;
-        target = target.next();
-        # 误区1 plus 为 null
-        if plus != null:
-             plus = plus.next();
-            
-        max_len = max_len - 1;
-
-    return target;
+                tmpNode = ListNode(tmp);
+                flag = 0;
+            tt.next = tmpNode;
+            tt = tmpNode;
+            if linkA:
+                linkA = linkA.next;
+            if linkB:
+                linkB = linkB.next;
+        print('ret',ret.next)
+        return ret.next;
         
-
 
 
 # 胡子哥标准参考答案

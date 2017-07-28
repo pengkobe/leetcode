@@ -58,7 +58,6 @@ def isMatch2(_str,patt):
             if i == 0 and isMatch2(_str[0:],patt[2:]):
                 return True;
             if _str[i] == patt[0] or patt[0] ==".":
-                # print(len(_str),i+1,_str[i+1:]);
                 if isMatch2(_str[i+1:],patt[2:]):
                     return True;
             else:
@@ -74,7 +73,7 @@ def isMatch2(_str,patt):
             return False;
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     assert isMatch2('aa', 'a') == False
     assert isMatch2('aa', 'aa') == True
     assert isMatch2('aaa', 'aaa') == True
@@ -113,3 +112,31 @@ def isMatch2(_str,patt):
 
 
 ## 动态规划的解法
+## 思路推演
+# 1. 全部初始化为 False 先，这里用二位数组 dp[i][j] 标识， 即 s 中前 r 个字符与 p 中前 j 个字符是否匹配
+# 2. dp[0][0]=True，空字符配空字符，恒为 True
+# 3. s 为空字符，考虑 x* 号情形，注意，按题目要求，*前必须有一个非*字符
+# 4. 正式开始规划
+#    1. 为 .
+#    2. 为 * （难点）
+#    3. 为普通字符
+
+
+class Solution:
+    # @return a boolean
+    def isMatch(self, s, p):
+        dp=[[False for i in range(len(p)+1)] for j in range(len(s)+1)]
+        dp[0][0]=True
+        for i in range(1,len(p)+1):
+            if p[i-1]=='*':
+                if i>=2:
+                    dp[0][i]=dp[0][i-2]
+        for i in range(1,len(s)+1):
+            for j in range(1,len(p)+1):
+                if p[j-1]=='.':
+                    dp[i][j]=dp[i-1][j-1]
+                elif p[j-1]=='*': # 难点1： i 为 1 时，假定不能为 * 
+                    dp[i][j]=dp[i][j-1] or dp[i][j-2] or (dp[i-1][j] and (s[i-1]==p[j-2] or p[j-2]=='.'))
+                else:
+                    dp[i][j]=dp[i-1][j-1] and s[i-1]==p[j-1]
+        return dp[len(s)][len(p)]

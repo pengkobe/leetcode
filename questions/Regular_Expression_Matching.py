@@ -80,15 +80,13 @@ if __name__ == '__main__':
     assert isMatch2('aaa', '.a') == False
     assert isMatch2('ab', '.*') == True
     assert isMatch2('aa', '.*') == True
-    assert isMatch2('aab', '*') == True
-    assert isMatch2('b', '.*.') == False
+    assert isMatch2('b', '.*.') == True
     assert isMatch2('aab', 'c*a*b') == True
     assert isMatch2('aaba', 'ab*a*c*a') == False
     assert isMatch2('a', '.*..a*') == False
     assert isMatch2('a', 'ab*') == True
     assert isMatch2('abcd', 'd*') == False
     assert isMatch2('ab', '.*c') == False
-    assert isMatch2('aab', '*') == False
 
 ## 正解
 # def isMatch3( s, p):
@@ -109,8 +107,6 @@ if __name__ == '__main__':
 #         return False
 
 
-
-
 ## 动态规划的解法
 ## 思路推演
 # 1. 全部初始化为 False 先，这里用二位数组 dp[i][j] 标识， 即 s 中前 r 个字符与 p 中前 j 个字符是否匹配
@@ -121,22 +117,40 @@ if __name__ == '__main__':
 #    2. 为 * （难点）
 #    3. 为普通字符
 
+# @return a boolean
+def isMatch4(s, p):
+    s_len = len(s);
+    p_len = len(p);
+    dp = [[False for j in range(p_len+1)] for i in range(s_len+1)];
+    dp[0][0] = True;
+    for i in range(2,p_len+1):
+        if p[i-1] == "*":
+            dp[0][i] = dp[0][i-2];
 
-class Solution:
-    # @return a boolean
-    def isMatch(self, s, p):
-        dp=[[False for i in range(len(p)+1)] for j in range(len(s)+1)]
-        dp[0][0]=True
-        for i in range(1,len(p)+1):
-            if p[i-1]=='*':
-                if i>=2:
-                    dp[0][i]=dp[0][i-2]
-        for i in range(1,len(s)+1):
-            for j in range(1,len(p)+1):
-                if p[j-1]=='.':
-                    dp[i][j]=dp[i-1][j-1]
-                elif p[j-1]=='*': # 难点1： i 为 1 时，假定不能为 * 
-                    dp[i][j]=dp[i][j-1] or dp[i][j-2] or (dp[i-1][j] and (s[i-1]==p[j-2] or p[j-2]=='.'))
-                else:
-                    dp[i][j]=dp[i-1][j-1] and s[i-1]==p[j-1]
-        return dp[len(s)][len(p)]
+    for i in range(1,s_len+1):
+        for j in range(1,p_len+1):
+            if p[j-1] == ".":
+                dp[i][j] = dp[i-1][j-1];
+            elif p[j-1] == "*":
+                # 误点1. p[i-2]=="."
+                # 误点2 ??? . dp[i-1][j-1] --> dp[i-1][j]
+                dp[i][j] = dp[i][j-1] or dp[i][j-2] or ((s[i-1] == p[j-2] or p[j-2]==".") and dp[i-1][j-1]);
+            else:
+                dp[i][j] = dp[i-1][j-1] and (s[i-1] == p[j -1]);
+
+    return dp[s_len][p_len];
+
+if __name__ == '__main__':
+    assert isMatch4('aa', 'a') == False
+    assert isMatch4('aa', 'aa') == True
+    assert isMatch4('aaa', '.a') == False
+    assert isMatch4('ab', '.*') == True
+    assert isMatch4('aa', '.*') == True
+    assert isMatch4('b', '.*.') == True
+    assert isMatch4('aab', 'c*a*b') == True
+    assert isMatch4('aaba', 'ab*a*c*a') == False
+    assert isMatch4('a', '.*..a*') == False
+    assert isMatch4('a', 'ab*') == True
+    assert isMatch4('abcd', 'd*') == False
+    assert isMatch4('ab', '.*c') == False
+    assert isMatch4('abc', 'a*c') == False

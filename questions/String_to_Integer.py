@@ -30,7 +30,7 @@
 # 3. str 为空
 # 4. str 为非法字符串
 # 5. str 超过最大值与最小值
-# 
+# 6. 如何对空格进行友好的处理
 
 def myAtoi(str):
     ret = 0;
@@ -42,10 +42,16 @@ def myAtoi(str):
     if str == "":
         return False;
     str_len = len(str);
-    
+    # 去掉前半部分空格
+    i= 0;
+    while i < str_len and str[i] == ' ':  
+        i += 1 
+    str =str[i:];
+    str_len = len(str);
+
+    # 符号位判断
     if str[0]=="-":
         belowZero = True;
-
     if str[0] == "+" or str[0]=="-":
         str = str[1:];
         str_len -=1;
@@ -54,46 +60,28 @@ def myAtoi(str):
 
     # change to number
     for i in range(str_len):
+        # 剔除特殊字符串
         if ord(str[i]) < a_0 or ord(str[i]) > a_9:
             return False;
         else:
+            #print('ret',ret,'stri',str[i],'belowZero0',belowZero)
+            # 对最值进行判断
+            if ret > INT_MAX / 10 or ( ret == INT_MAX/10 and ord(str[i])-a_0 > 7):
+                if belowZero:
+                    if ord(str[i])-a_0 > 8:
+                        return False
+                else:
+                    return False;
+            ret = 10*ret + ord(str[i]) - a_0;
             
-            ret = 10*ret + int(str[i]);
-
+            
+ 
     if belowZero:
         return -ret;
     return ret;
-    
-print(myAtoi('-123'));
-
-
-
-
-# class Solution(object):  
-#     def myAtoi(self, str):  
-#         """ 
-#         :type str: str 
-#         :rtype: int 
-#         """  
-#         i = 0  
-#         sign = 1  
-#         base = 0  
-#         l = len(str)  
-#         INT_MAX = 2147483647  
-#         INT_MIN = -2147483648  
-#         a_0 = ord('0')  
-#         a_9 = ord('9')  
-#         while i < l and str[i] == ' ':  
-#             i += 1  
-#         if i < l and str[i] == '-':  
-#             sign = -1  
-#             i += 1  
-#         elif i< l and str[i] == '+':  
-#             i += 1  
-#         while i < l and ord(str[i]) >= a_0 and ord(str[i]) <= a_9:  
-#             if base > INT_MAX / 10 or (base == INT_MAX / 10 and ord(str[i]) - a_0 > 7):  
-#                 return sign == 1 and INT_MAX or INT_MIN  
-#             base = 10 * base + (ord(str[i]) - a_0)  
-#             i += 1  
-  
-#         return base * sign  
+print(myAtoi('')); 
+print(myAtoi('  123'));  
+print(myAtoi('aa')); 
+print(myAtoi('-aaa'));     
+print(myAtoi('-0'));
+print(myAtoi('2147483647'));

@@ -27,7 +27,7 @@
 #         return True;
 #     if not _str or not patt:
 #         return False;
-# 此处与题目要求不符
+#   此处与题目要求不符
 #     if patt and patt[0]=="*":
 #         return isMatch(_str[1:],patt) or isMatch(_str,patt[1:]);
 #     else:
@@ -45,6 +45,39 @@
 #     assert isMatch('aab', 'c*a*b') == True
 
 
+# 提交解法1 备份
+# class Solution(object):
+#     def isMatch(self, _str, patt):
+#         """
+#         :type s: str
+#         :type p: str
+#         :rtype: bool
+#         """
+#         if len(patt)==0: 
+#             return len(_str)==0
+
+#         if len(patt)>1 and patt[1]=="*":
+#             i = 0;
+#             if len(_str) ==0:
+#                 if self.isMatch(_str[0:],patt[2:]):
+#                     return True;
+#             while i < len(_str):
+#                 if i == 0 and self.isMatch(_str[0:],patt[2:]):
+#                         return True;
+#                 if _str[i] ==patt[0] or patt[0] ==".":
+#                     if self.isMatch(_str[i+1:],patt[2:]):
+#                         return True;
+#                 else:
+#                     break;
+#                 i = i +1;
+#             return False;
+#         else:
+#             if _str and (_str[0]==patt[0] or patt[0] =="."):
+#                 return self.isMatch(_str[1:],patt[1:]);
+#             else:
+#                 return False;
+
+# 解法1
 def isMatch2(_str,patt):
     if len(patt)==0: 
         return len(_str)==0
@@ -88,7 +121,7 @@ if __name__ == '__main__':
     assert isMatch2('abcd', 'd*') == False
     assert isMatch2('ab', '.*c') == False
 
-## 正解
+## 解法1 参考
 # def isMatch3( s, p):
 #     if len(p)==0: 
 #         return len(s)==0
@@ -133,8 +166,8 @@ def isMatch4(s, p):
                 dp[i][j] = dp[i-1][j-1];
             elif p[j-1] == "*":
                 # 误点1. p[i-2]=="."
-                # 误点2 ??? . dp[i-1][j-1] --> dp[i-1][j]
-                dp[i][j] = dp[i][j-1] or dp[i][j-2] or ((s[i-1] == p[j-2] or p[j-2]==".") and dp[i-1][j-1]);
+                # 误点2 . dp[i-1][j-1] --> dp[i-1][j]
+                dp[i][j] = dp[i][j-1] or dp[i][j-2] or ((s[i-1] == p[j-2] or p[j-2]==".") and dp[i-1][j]);
             else:
                 dp[i][j] = dp[i-1][j-1] and (s[i-1] == p[j -1]);
 
@@ -154,3 +187,5 @@ if __name__ == '__main__':
     assert isMatch4('abcd', 'd*') == False
     assert isMatch4('ab', '.*c') == False
     assert isMatch4('abc', 'a*c') == False
+    #  dp[i-1][j-1] --> dp[i-1][j], 举例如 aa vs .
+    assert isMatch4('aaa', '.*') == True

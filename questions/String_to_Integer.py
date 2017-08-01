@@ -40,7 +40,8 @@ def myAtoi(str):
     a_9 = ord('9')    
     belowZero =False;
     if str == "":
-        return False;
+        return 0;
+
     str_len = len(str);
     # 去掉前半部分空格
     i= 0;
@@ -48,6 +49,16 @@ def myAtoi(str):
         i += 1 
     str =str[i:];
     str_len = len(str);
+    break_point = -1;
+    i= 1;
+    while i < str_len:  
+        if str[i] == ' ' or (ord(str[i]) < a_0 or ord(str[i]) > a_9) :
+                break_point = i;
+                break;
+        i = i + 1;
+    if break_point != -1:
+        str =str[:break_point];
+        str_len = len(str);
 
     # 符号位判断
     if str[0]=="-":
@@ -56,32 +67,44 @@ def myAtoi(str):
         str = str[1:];
         str_len -=1;
     if str_len == 0:
-        return False;
+        return 0;
 
     # change to number
     for i in range(str_len):
         # 剔除特殊字符串
         if ord(str[i]) < a_0 or ord(str[i]) > a_9:
-            return False;
+            return 0;
         else:
-            #print('ret',ret,'stri',str[i],'belowZero0',belowZero)
+            # print('ret',ret,'stri',str[i],'belowZero0',belowZero)
             # 对最值进行判断
-            if ret > INT_MAX / 10 or ( ret == INT_MAX/10 and ord(str[i])-a_0 > 7):
+            if ret > INT_MAX / 10:
+                return INT_MIN if belowZero else INT_MAX;
+            if ret == INT_MAX/10:
                 if belowZero:
                     if ord(str[i])-a_0 > 8:
-                        return False
+                        return INT_MIN;
                 else:
-                    return False;
+                     if ord(str[i])-a_0 > 7:
+                        return INT_MAX;
             ret = 10*ret + ord(str[i]) - a_0;
-            
-            
  
     if belowZero:
-        return -ret;
+        ret = -ret;
     return ret;
-print(myAtoi('')); 
-print(myAtoi('  123'));  
-print(myAtoi('aa')); 
-print(myAtoi('-aaa'));     
-print(myAtoi('-0'));
-print(myAtoi('2147483647'));
+# print(myAtoi('')); 
+# print(myAtoi('  123'));  
+# print(myAtoi('aa')); 
+# print(myAtoi('-aaa'));     
+# print(myAtoi('-0'));
+# print(myAtoi('2147483647'));
+# print(myAtoi('  -0012a42'));
+print(myAtoi("      -11919730356x"));
+
+
+
+# Input:
+# "  -0012a42"
+# Output:
+# 0
+# Expected:
+# -12

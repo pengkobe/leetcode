@@ -91,13 +91,18 @@ def myAtoi(str):
     if belowZero:
         ret = -ret;
     return ret;
-# print(myAtoi('')); 
-# print(myAtoi('  123'));  
-# print(myAtoi('aa')); 
-# print(myAtoi('-aaa'));     
-# print(myAtoi('-0'));
-# print(myAtoi('2147483647'));
-# print(myAtoi('  -0012a42'));
+print(myAtoi('')); 
+print(myAtoi('0')); 
+print(myAtoi('+')); 
+print(myAtoi(' + 123')); 
+print(myAtoi(' -123 123')); 
+print(myAtoi('a11')); 
+print(myAtoi('  123'));  
+print(myAtoi('aa')); 
+print(myAtoi('-aaa'));     
+print(myAtoi('-0'));
+print(myAtoi('2147483647'));
+print(myAtoi('  -0012a42'));
 print(myAtoi("      -11919730356x"));
 
 

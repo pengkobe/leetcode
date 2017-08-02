@@ -27,7 +27,7 @@
 -- | Max       |
 -- +-----------+
 
-# 我的答案
+# 我的答案 # 只领先 2%
 select Name as Customers from Customers a left join Orders b
 on a.Id = b.CustomerId
 where CustomerId is null 

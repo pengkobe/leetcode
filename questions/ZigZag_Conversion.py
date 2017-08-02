@@ -43,6 +43,7 @@ def convert(str, row):
 #print(convert("PAYPALISHIRING",3))
 
 
+# 有误解题目之嫌
 def convert2(str, row):
     if row == 1:
         return str;
@@ -58,8 +59,9 @@ def convert2(str, row):
         j = 0;
         while j < row:
             if j % 2 ==1:
+                print(base,i,j)
                 result_arr[j][2 * i] = str[base * i + j];
-                result_arr[j][2 * i+1] = str[base * i + j * 2 + 1];
+                result_arr[j][2 * i+1] = str[base * i + j * (row-1) + 1];
             else:
                 result_arr[j][2 * i] = str[base * i + j];
             j +=1;
@@ -71,11 +73,49 @@ def convert2(str, row):
         if j % 2 ==1:
             result_arr[j][2 * i] = str[base * i + j];
             if (base * i + j * 2 + 1) < str_len:
-                result_arr[j][2 * i+1] = str[base * i + j * 2 + 1];
+                result_arr[j][2 * i+1] = str[base * i + j * (row-1) + 1];
         else:
             result_arr[j][2 * i] = str[base * i + j];
         j += 1;
-    return result_arr;
+    
+    ret = "";
+    #print(result_arr)
+    # 合并为字符串
+    while row > 0:
+        ret = "".join(result_arr[row-1]) + ret;
+        row -=1;
+    return ret;
 
 
-print(convert2("PAYPALISHIRING",3))
+#print(convert2("PAYPALISHIRING",3))
+#print(convert2("ABCD",2))
+
+# A    D
+# B  C
+
+
+## 正解
+def convert3(s, numRows):
+    """
+    :type s: str
+    :type numRows: int
+    :rtype: str
+    """
+    if numRows == 1:
+        return s
+    zigzag = ['' for _ in range(numRows)]
+    row = 0
+    step = 1
+    for c in s:
+        if row == 0:
+            step = 1
+        if row == numRows - 1:
+            step = -1
+        zigzag[row] += c
+        row += step
+        print(zigzag)
+    return ''.join(zigzag)
+
+print(convert3("PAYPALISHIRING",4))
+#print(convert3("ABC",2))
+# print(convert3("ABCD",2))

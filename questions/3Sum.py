@@ -157,6 +157,7 @@ def _3Sum_1(array):
 
 
 # 思路一错，满盘皆输，思路最重要
+# [0,0,0] 报错
 def threeSum( nums ):
     # 妙点: 排序后，可以降低比对的难度
     nums = sorted(nums);
@@ -169,7 +170,7 @@ def threeSum( nums ):
         if a>0:
             return ret;
         # 误区1 nums[i] == nums[i+1]
-        if nums[i] == nums[i-1]:
+        if i!=0 and nums[i] == nums[i-1]:
             i = i + 1;
             continue;
         m = i + 1;
@@ -189,10 +190,37 @@ def threeSum( nums ):
                 # 误区2 nums[m] == nums[m+1] / nums[n] == nums[n-1]
                 while nums[m] == nums[m-1] and m +1 < n:
                     m = m +1;
-                while nums[n] == nums[n+1] :
+                while nums[n] == nums[n+1] and n>0:
                     n = n -1;
         i = i +1;
     return ret
 
 print(threeSum([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0]))
-# print(threeSum([0, 0, 0,0, 0, 0]))
+print(threeSum([0, 0, 0,0, 0, 0]))
+print(threeSum([4, 4, -8,0, 0, 0]))
+
+## 提交解法
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums, result, i = sorted(nums), [], 0
+        while i < len(nums) - 2:
+            if i == 0 or nums[i] != nums[i - 1]:
+                j, k = i + 1, len(nums) - 1
+                while j < k:
+                    if nums[i] + nums[j] + nums[k] < 0:
+                        j += 1
+                    elif nums[i] + nums[j] + nums[k] > 0:
+                        k -= 1
+                    else:
+                        result.append([nums[i], nums[j], nums[k]])
+                        j, k = j + 1, k - 1
+                        while j < k and nums[j] == nums[j - 1]:
+                            j += 1
+                        while j < k and nums[k] == nums[k + 1]:
+                            k -= 1
+            i += 1
+        return result

@@ -77,7 +77,7 @@ class Solution(object):
         b_node = head;
         node = head.next;
         count = 2;
-        print n; 
+        #print n; 
         while count < n and node:
             b_node = node
             node = node.next;

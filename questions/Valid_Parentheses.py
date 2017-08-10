@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 # The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 
@@ -21,7 +22,24 @@ def isValid(s):
 
 # 解法2
 def isValid2(s):
-    ret = [];
+    if s == "":
+        return True;
+    ret = [None];
     strs = ["(",")","[","]","{","}"];
-    
-    return len(ret) > 0;
+    for i in s:
+        if i not in strs:
+            return False;
+        temp = strs.index(i);
+        
+        if ret[len(ret)-1] != strs[temp -1]:
+            ret.append(i);
+        else:
+            if len(ret)>0:
+                ret.pop();
+    if len(ret)>0:
+        ret.pop();
+    return len(ret) == 0;
+print(isValid2("a"))
+print(isValid2("[]"))
+print(isValid2("[{}]"))
+print(isValid2("[{]"))

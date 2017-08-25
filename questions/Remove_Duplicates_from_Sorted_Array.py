@@ -30,3 +30,27 @@
 
 # print(removeDuplicates([1,1,1,2,2,2]))
 # print(removeDuplicates([1,1,1,2]))
+
+
+def removeDuplicates(nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        num_len = len(nums);
+        if num_len <=1:
+            return num_len;
+        pre,curr = 0,0;
+        while curr < num_len:
+            if nums[pre] == nums[curr]:
+                curr+= 1;
+            else:
+                pre += 1;
+                nums[pre] = nums[curr];
+                curr +=1;
+
+        return pre +1;
+
+
+print(removeDuplicates([1,1,1,2,2,2]))
+print(removeDuplicates([1,1,1,2]))

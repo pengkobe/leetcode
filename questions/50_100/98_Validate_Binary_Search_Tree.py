@@ -129,3 +129,31 @@ class Solution1(object):
 
 
 ## 参考答案: 中序遍历
+# Definition for a binary tree node.  
+# class TreeNode(object):  
+#     def __init__(self, x):  
+#         self.val = x  
+#         self.left = None  
+#         self.right = None  
+  
+class Solution4(object):  
+    pre=None   
+    '''''为Solution类添加pre数据成员，在中序遍历二叉搜索树的过程中，pre用来指向当前节点的前驱节点。 
+    注意：pre不能放在isValidBST函数的内部。如果将pre放在isValidBST函数的内部，则每一次递归调用isValidBST函数的时候， 
+    pre都将重新赋值为None。实际上，在每一次递归调用时，我们需要的是上一次调用结束时pre的值'''  
+    def isValidBST(self, root):  
+        """ 
+        :type root: TreeNode 
+        :rtype: bool 
+        """  
+        if root is None:   
+            return True  
+        Bool= self.isValidBST(root.left)  
+          
+        if self.pre!=None:  
+            Bool=Bool and (self.pre.val<root.val)  
+          
+        self.pre=root  
+          
+        Bool=Bool and self.isValidBST(root.right)  
+        return Bool  
